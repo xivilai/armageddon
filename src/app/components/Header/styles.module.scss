@@ -1,0 +1,27 @@
+@use "@/assets/styles/colors";
+
+.header {
+    position: fixed;
+    z-index: 1;
+    background-color: black;
+    width: 100%;
+    margin-bottom: 1em;
+
+    .content {
+        padding: 1em;
+    }
+}
+
+.header-offset {
+    height: 132px;
+}
+
+.header-title {
+    color: colors.$secondary;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.header-subtitle {
+    line-height: 24px;
+}

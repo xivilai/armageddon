@@ -1,0 +1,56 @@
+.pageContainer {
+  padding: 60px;
+}
+
+.asteroidName {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.diameterInfo {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.hazardousInfo {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.approachList {
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.approachItem {
+  margin-bottom: 20px;
+}
+
+.approachTitle {
+  font-weight: bold;
+}
+
+.approachDetail {
+  margin-top: 5px;
+}
+
+.orbitalData {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.orbitClass {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.orbitClassTitle {
+  font-weight: bold;
+}
+
+.orbitClassDetails {
+  margin-top: 5px;
+}

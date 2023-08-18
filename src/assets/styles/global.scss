@@ -1,0 +1,148 @@
+@use "reset";
+@use "colors";
+@use "button";
+
+body {
+	margin: 0;
+	background-color: colors.$bg-primary;
+	font-family: Helvetica, Arial, sans-serif;
+	font-weight: 400;
+	color: colors.$primary;
+	height: 100vh;
+}
+
+h1,
+h2,
+h3 {
+	font-weight: bold;
+	margin-bottom: 8px;
+}
+
+h1 {
+	font-size: 2rem;
+}
+
+h2 {
+	font-size: 1.75rem;
+	line-height: 36px;
+}
+
+h3 {
+	font-size: 1.5rem;
+	line-height: 32px;
+}
+
+.page-wrapper {
+	display: flex;
+	position: relative;
+	height: 100%;
+}
+
+.page-content {
+	width: 100%;
+	margin-left: 1em;
+}
+
+.home-wrapper {
+	margin-left: 10%;
+	margin-right: 16px;
+	max-width: 725px;
+	justify-content: space-between;
+
+	@media screen and (min-width: 765px) {
+		display: flex;
+		column-gap: 1em;
+		padding: 0 3em;
+	}
+}
+
+.page-bg {
+	margin-right: 20%;
+
+	@media screen and (min-width: 1024px) {
+		margin-right: 280px;
+	}
+
+	@media screen and (min-width: 1365px) {
+		margin-right: 400px;
+	}
+}
+
+.earth-image {
+	position: fixed;
+	object-fit: contain;
+	object-position: right;
+	right: 83%;
+
+	@media screen and (min-width: 1024px) {
+		left: -100px;
+		right: initial;
+	}
+
+	@media screen and (min-width: 1365px) {
+		width: 536px;
+		height: 620px;
+		left: -140px;
+	}
+}
+
+
+#cart-widget {
+	position: fixed;
+	box-sizing: border-box;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 100%;
+
+	background-color: #232526;
+	padding: 16px;
+	display: flex;
+
+	justify-content: space-between;
+	align-self: flex-start;
+	row-gap: 32px;
+
+	@media screen and (min-width: 765px) {
+		border-radius: 24px;
+		max-width: 150px;
+		position: static;
+		flex-direction: column;
+	}
+
+	.cart-widget-title {
+		text-transform: capitalize;
+		font-size: 18px;
+		font-weight: bold;
+		line-height: 24px;
+
+		span {
+			font-size: smaller;
+			font-weight: 400;
+		}
+	}
+}
+
+.distance-input {
+	button {
+		background: none;
+		outline: none;
+		border: none;
+		color: white;
+		font-size: 16px;
+		text-decoration: underline;
+		cursor: pointer;
+
+		&.active {
+			font-weight: bold;
+			text-decoration: none;
+		}
+	}
+}
+
+footer {
+	position: fixed;
+	bottom: 0;
+	font-size: 16px;
+	padding: 16px;
+}

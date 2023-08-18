@@ -1,0 +1,50 @@
+.asteroid-list {
+    display: flex;
+    flex-direction: column;
+    padding: 24px 0;
+    row-gap: 24px;
+
+    .asteroid-list-item {
+        display: flex;
+        flex-direction: column;
+        row-gap: 0.5em;
+
+        .row {
+            display: flex;
+            column-gap: 0.5em;
+        }
+
+        .col {
+            display: flex;
+            flex-direction: column;
+            row-gap: 0.5em;
+        }
+
+        .danger-indicator {
+            font-size: 14px;
+            display: flex;
+            align-items: flex-end;
+            column-gap: 0.5em;
+            align-self: center;
+        }
+    }
+
+    .asteroid-distance {
+        display: flex;
+        flex-direction: column;
+        row-gap: 8px;
+    }
+
+    .asteroid-name {
+        text-decoration: underline;
+        font-weight: bold;
+    }
+
+    .asteroid-magnitude {
+        font-size: 12px;
+    }
+}
+
+.order-button {
+    text-transform: uppercase;
+}
