@@ -14,7 +14,7 @@ function useAsteroids() {
   useEffect(() => {
     fetchAsteroids(nextPage).then((asteroidFeedResponse) => {
       setNearEarthObjects((prev) => ({...prev, ...asteroidFeedResponse.near_earth_objects}));
-      setNextPage(asteroidFeedResponse.links.next);
+      setNextPage(asteroidFeedResponse.links.next.replace("http", "https"));
     });
   }, [page]);
 
