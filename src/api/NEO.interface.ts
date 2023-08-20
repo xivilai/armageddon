@@ -89,7 +89,7 @@ interface NearEarthObjects {
   [date: string]: NearEarthObject[];
 }
 
-interface NEOFeedResponse {
+interface NEOFeed {
   links: {
     next: string;
     previous: string;
@@ -99,4 +99,4 @@ interface NEOFeedResponse {
   near_earth_objects: NearEarthObjects;
 }
 
-export type { NEOFeedResponse, NearEarthObject, NearEarthObjects };
+export type { NEOFeed, NearEarthObject, NearEarthObjects };

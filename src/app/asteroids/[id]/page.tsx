@@ -1,5 +1,7 @@
 import { NearEarthObject } from "@/api/NEO.interface";
 import styles from "./styles.module.scss";
+import { formatDateString } from "@/utils/date";
+import { CartWidget } from "@/app/components/CartWidget/CartWidget";
 
 type Props = {
   params: { id: string };
@@ -11,23 +13,20 @@ async function AsteroidPage({ params }: Props) {
   const asteroid = await getAsteroidData(id);
 
   return (
-    <>
-      <div className={styles.pageContainer}>
+    <div className={styles.pageContainer}>
+      <div className="page">
         <h2 className={styles.asteroidName}>Имя: {asteroid.name}</h2>
-
         <div className={styles.diameterInfo}>
           Диаметр: от{" "}
           {asteroid.estimated_diameter.kilometers.estimated_diameter_min} до{" "}
           {asteroid.estimated_diameter.kilometers.estimated_diameter_max}
         </div>
-
         <div className={styles.hazardousInfo}>
           Опасен:{" "}
           {asteroid.is_potentially_hazardous_asteroid === true ? "Да" : "Нет"}
         </div>
-
         <div className={styles.orbitalData}>
-          <h2>Данные об орбите</h2>
+          <h3>Орбита</h3>
           <p>
             <strong>Идентификатор орбиты:</strong>{" "}
             {asteroid.orbital_data?.orbit_id}
@@ -36,9 +35,8 @@ async function AsteroidPage({ params }: Props) {
             <strong>Дата определения орбиты:</strong>{" "}
             {asteroid.orbital_data?.orbit_determination_date}
           </p>
-
           <div className={styles.orbitClass}>
-            <h3 className={styles.orbitClassTitle}>Класс орбиты</h3>
+            <h4 className={styles.orbitClassTitle}>Класс орбиты</h4>
             <div className={styles.orbitClassDetails}>
               <p>
                 <strong>Тип класса орбиты:</strong>{" "}
@@ -55,23 +53,19 @@ async function AsteroidPage({ params }: Props) {
             </div>
           </div>
         </div>
-
         <div className={styles.approachList}>
           <h3>Ближайшие подлеты</h3>
           <ul>
             {asteroid.close_approach_data.map((approachData, index) => (
               <li className={styles.approachItem} key={index}>
                 <p className={styles.approachTitle}>
-                  <strong>Дата ближайшего приближения:</strong>{" "}
-                  {approachData.close_approach_date}
+                  <time dateTime={approachData.close_approach_date}>
+                    {formatDateString(approachData.close_approach_date)}
+                  </time>
                 </p>
                 <div className={styles.approachDetail}>
                   <p>
-                    <strong>Полная дата ближайшего приближения:</strong>{" "}
-                    {approachData.close_approach_date_full}
-                  </p>
-                  <p>
-                    <strong>Эпоха даты ближайшего приближения:</strong>{" "}
+                    <strong>Эпоха:</strong>{" "}
                     {approachData.epoch_date_close_approach}
                   </p>
                 </div>
@@ -80,7 +74,9 @@ async function AsteroidPage({ params }: Props) {
           </ul>
         </div>
       </div>
-    </>
+
+      <CartWidget />
+    </div>
   );
 }
 

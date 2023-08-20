@@ -1,3 +1,4 @@
+'use client'
 import { useRouter } from "next/navigation";
 import { useCart } from "@/contexts/CartContext";
 import { getSuffixedAsteroidString } from "@/utils/string";

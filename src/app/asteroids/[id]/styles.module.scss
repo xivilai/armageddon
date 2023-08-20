@@ -1,4 +1,9 @@
-.pageContainer {
+.page-container {
+  display: flex;
+  column-gap: 2em;
+}
+
+.page {
   padding: 60px;
 }
 

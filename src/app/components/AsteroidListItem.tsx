@@ -1,32 +1,26 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { DistanceOption } from "./SwitchableAsteroidList";
-
 import { DistanceIcon } from "@/assets/icons/DistanceIcon";
 import asteroidImage from "@/assets/icons/asteroid.png";
 import { DangerIcon } from "@/assets/icons/DangerIcon";
 
 import { NearEarthObject } from "@/api/NEO.interface";
-import { kmToMoonTrips } from "@/utils/asteroids";
 import { formatDateString } from "@/utils/date";
 
 import styles from "./AsteroidList/styles.module.scss";
 
 interface AsteroidListItemProps {
   asteroid: NearEarthObject;
-  isInCart?: boolean;
-  distanceOption?: DistanceOption;
-  onOrder?: (asteroid: NearEarthObject) => void;
+  missDistance: string;
+  orderButton?: React.ReactNode;
 }
 
 function AsteroidListItem({
   asteroid,
-  isInCart,
-  distanceOption = "km",
-  onOrder,
+  missDistance,
+  orderButton,
 }: AsteroidListItemProps) {
-  let distance = getAsteroidDistance(asteroid, distanceOption);
   const asteroidDate = formatDateString(
     asteroid.close_approach_data[0].close_approach_date
   );
@@ -34,13 +28,15 @@ function AsteroidListItem({
   return (
     <li className={styles["asteroid-list-item"]}>
       <h3 className={styles["asteroid-date"]}>
-        <time dateTime={asteroidDate}>{asteroidDate}</time>
+        <time dateTime={asteroid.close_approach_data[0].close_approach_date}>
+          {asteroidDate}
+        </time>
       </h3>
 
       <div className={styles["row"]}>
         <div className={styles["asteroid-distance"]}>
           <span>
-            {distance} {distanceOption === "km" ? "КМ" : "лунных орбит"}
+            {missDistance}
           </span>
           <DistanceIcon />
         </div>
@@ -67,15 +63,7 @@ function AsteroidListItem({
       </div>
 
       <div className={styles["row"]}>
-        {onOrder !== undefined ? (
-          <button
-            className="button order-button"
-            onClick={() => onOrder(asteroid)}
-            disabled={isInCart}
-          >
-            {isInCart ? <span>в корзине</span> : <span>заказать</span>}
-          </button>
-        ) : null}
+        {orderButton}
 
         {asteroid.is_potentially_hazardous_asteroid ? (
           <div className={styles["danger-indicator"]}>
@@ -95,25 +83,6 @@ function getAsteroidImageSize(diameterInKm: number) {
     return 24;
   } else {
     return 16;
-  }
-}
-
-function getAsteroidDistance(
-  asteroid: NearEarthObject,
-  distanceOption: DistanceOption
-) {
-  if (distanceOption === "moon orbits") {
-    return kmToMoonTrips(
-      Number(asteroid.close_approach_data[0].miss_distance.kilometers)
-    );
-  } else {
-    const distanceInKm = Math.trunc(
-      Number(asteroid.close_approach_data[0].miss_distance.kilometers)
-    )
-      .toString()
-      .replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-
-    return distanceInKm;
   }
 }
 

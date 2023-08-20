@@ -2,18 +2,26 @@
 import { useCart } from "@/contexts/CartContext";
 
 import { AsteroidList } from "../components/AsteroidList/AsteroidList";
+import { AsteroidListItem } from "../components/AsteroidListItem";
+import { getMissDistance } from "@/utils/asteroids";
 
 function OrderDetailsPage() {
   const { state } = useCart();
+  const asteroids = state.cart;
 
   return (
     <div className="order-details-page">
       <h2>{state.cart.length === 0 ? "Карзина пуста" : "Заказ отправлен!"}</h2>
-      <AsteroidList
-        asteroids={state.cart}
-        disableOrderButtons
-        distanceOption="moon orbits"
-      />
+
+      <AsteroidList>
+        {asteroids.map((asteroid) => (
+          <AsteroidListItem
+            key={asteroid.id}
+            asteroid={asteroid}
+            missDistance={getMissDistance(asteroid, "moon orbits")}
+          />
+        ))}
+      </AsteroidList>
 
       <footer>© Все права и планета защищены</footer>
     </div>

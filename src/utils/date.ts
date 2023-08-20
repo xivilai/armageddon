@@ -11,6 +11,19 @@ function getCurrentDateString(): string {
   return dateString;
 }
 
+/*
+ * @returns tomorrow date in the format: yyyy-mm-dd
+ */
+function getTomorrowDateString(): string {
+  let today = new Date();
+  let tomorrow = new Date(today);
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  let year = tomorrow.getFullYear();
+  let month = ('0' + (tomorrow.getMonth() + 1)).slice(-2);
+  let day = ('0' + tomorrow.getDate()).slice(-2);
+  return year + '-' + month + '-' + day;
+}
+
 function formatDateString(dateString: string) {
   const months = [
     'янв', 'фев', 'мар', 'апр', 'май', 'июн',
@@ -25,4 +38,4 @@ function formatDateString(dateString: string) {
   return `${day} ${months[monthIndex]} ${year}`;
 }
 
-export { getCurrentDateString, formatDateString };
+export { getCurrentDateString, formatDateString, getTomorrowDateString };
