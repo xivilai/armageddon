@@ -1,7 +1,7 @@
 import { NearEarthObject } from "@/types";
 import styles from "./styles.module.scss";
 import { formatDateString } from "@/utils/date";
-import { CartWidget } from "@/app/components/CartWidget/CartWidget";
+import { AsteroidSidebar } from "@/app/components/AsteroidSidebar";
 
 type Props = {
   params: { id: string };
@@ -75,7 +75,7 @@ async function AsteroidPage({ params }: Props) {
         </div>
       </div>
 
-      <CartWidget />
+      <AsteroidSidebar asteroid={asteroid} />
     </div>
   );
 }
