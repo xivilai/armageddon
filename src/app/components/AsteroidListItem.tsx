@@ -5,7 +5,7 @@ import { DistanceIcon } from "@/assets/icons/DistanceIcon";
 import asteroidImage from "@/assets/icons/asteroid.png";
 import { DangerIcon } from "@/assets/icons/DangerIcon";
 
-import { NearEarthObject } from "@/api/NEO.interface";
+import { NearEarthObject } from "@/types";
 import { formatDateString } from "@/utils/date";
 
 import styles from "./AsteroidList/styles.module.scss";

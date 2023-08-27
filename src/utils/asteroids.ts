@@ -1,9 +1,10 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { getTomorrowDateString } from "./date";
-import { NearEarthObject, NearEarthObjects } from "@/api/NEO.interface";
+import { MissDistance, NearEarthObjects } from "@/types";
 import { fetchNEOFeed } from "@/api/getAsteroids";
-import { DistanceUnits } from "@/app/components/DistanceUnitAsteroidList";
+import { DistanceUnits } from "@/types";
+import { useScrollPage } from "./useScrollPage";
 
 const tomorrow = getTomorrowDateString();
 const API_URL = `/api/asteroid-feed/?start_date=${tomorrow}&end_date=${tomorrow}`;
@@ -12,40 +13,49 @@ function useAsteroids() {
   const [nearEarthObjects, setNearEarthObjects] = useState<NearEarthObjects>(
     {}
   );
-  const [page, setPage] = useState(0);
-  const [nextPage, setNextPage] = useState(API_URL);
+  const page = useScrollPage();
+  const nextPage = useRef(API_URL);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (page === 0) {
       return;
     }
 
-    fetchNEOFeed(nextPage).then((asteroidFeedResponse) => {
-      setNearEarthObjects((prev) => ({
-        ...prev,
-        ...asteroidFeedResponse.near_earth_objects,
-      }));
-      setNextPage(asteroidFeedResponse.links.next.replace("http", "https"));
-    });
+    setIsLoading(true);
+
+    fetchNEOFeed(nextPage.current)
+      .then((asteroidFeedResponse) => {
+        setNearEarthObjects((prev) => ({
+          ...prev,
+          ...asteroidFeedResponse.near_earth_objects,
+        }));
+        nextPage.current = asteroidFeedResponse.links.next.replace("http", "https");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, [page]);
 
-  useEffect(() => {
-    function handleScroll() {
-      const scrolledToBottom =
-				window.scrollY + window.innerHeight === document.body.scrollHeight
+  return { nearEarthObjects, isLoading };
+}
 
-			if (scrolledToBottom) {
-        setPage((prev) => prev + 1);
-			}
-    }
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  return nearEarthObjects;
+function getMissDistanceLabel(
+  missDistance: MissDistance,
+  distanceOption: keyof typeof DistanceUnits
+) {
+  switch (distanceOption) {
+    case "moon orbits":
+      return `${kmToMoonTrips(Number(missDistance.kilometers))} лунных орбит`;
+    case "miles":
+      return `${Math.trunc(Number(missDistance.miles))} миль`;
+    case "kilometers":
+      return `${Math.trunc(Number(missDistance.kilometers))
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, " ")} километров`;
+    default:
+      throw new Error(`Unknown distance option: ${distanceOption}`)
+  }
 }
 
 function kmToMoonTrips(km: number) {
@@ -54,29 +64,4 @@ function kmToMoonTrips(km: number) {
   return Math.trunc(distanceInTrips).toString();
 }
 
-function getMissDistance(
-  asteroid: NearEarthObject,
-  distanceOption: keyof typeof DistanceUnits
-) {
-  let distanceString = "";
-
-  if (distanceOption === "moon orbits") {
-    const moonOrbits = kmToMoonTrips(
-      Number(asteroid.close_approach_data[0].miss_distance.kilometers)
-    );
-
-    distanceString = `${moonOrbits} ${DistanceUnits["moon orbits"]}`;
-  } else {
-    const kilometers = Math.trunc(
-      Number(asteroid.close_approach_data[0].miss_distance.kilometers)
-    )
-      .toString()
-      .replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-
-    distanceString = `${kilometers} ${DistanceUnits.kilometers}`;
-  }
-
-  return distanceString;
-}
-
-export { useAsteroids, kmToMoonTrips, getMissDistance };
+export { useAsteroids, kmToMoonTrips, getMissDistanceLabel };

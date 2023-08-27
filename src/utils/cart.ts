@@ -1,4 +1,4 @@
-import { NearEarthObject } from "@/api/NEO.interface";
+import { NearEarthObject } from "@/types";
 
 export function getAsteroidInCart(
   cart: NearEarthObject[],

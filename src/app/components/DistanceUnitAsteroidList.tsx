@@ -6,23 +6,21 @@ import { AsteroidListItem } from "./AsteroidListItem";
 import { OrderButton } from "./CartWidget/OrderButton";
 import { DistanceUnitSelect } from "./DistanceUnitSelect";
 
-import { getMissDistance } from "@/utils/asteroids";
+import { getMissDistanceLabel, useAsteroids } from "@/utils/asteroids";
 import { useCart } from "@/contexts/CartContext";
-import { NearEarthObjects } from "@/api/NEO.interface";
+import { DistanceUnitsKey, NearEarthObjects } from "@/types";
 import { getAsteroidInCart } from "@/utils/cart";
 
-export enum DistanceUnits {
-  "kilometers" = "КМ",
-  "moon orbits" = "лунных орбит",
-}
-
 type Props = {
-  asteroids: NearEarthObjects;
+  initialAsteroids: NearEarthObjects;
 };
 
-function DistanceUnitAsteroidList({ asteroids }: Props) {
+function DistanceUnitAsteroidList({ initialAsteroids }: Props) {
+  const { isLoading, nearEarthObjects } = useAsteroids();
+  const asteroids = { ...initialAsteroids, ...nearEarthObjects };
+
   const [currentDistanceUnit, setCurrentDistanceUnit] =
-    useState<keyof typeof DistanceUnits>("kilometers");
+    useState<DistanceUnitsKey>("kilometers");
 
   const { state, dispatch } = useCart();
 
@@ -40,7 +38,10 @@ function DistanceUnitAsteroidList({ asteroids }: Props) {
             <AsteroidListItem
               key={asteroid.id}
               asteroid={asteroid}
-              missDistance={getMissDistance(asteroid, currentDistanceUnit)}
+              missDistance={getMissDistanceLabel(
+                asteroid.close_approach_data[0].miss_distance,
+                currentDistanceUnit
+              )}
               orderButton={
                 <OrderButton
                   onClick={() => dispatch({ type: "ADD_TO_CART", asteroid })}
@@ -50,6 +51,8 @@ function DistanceUnitAsteroidList({ asteroids }: Props) {
             />
           ))}
       </AsteroidList>
+
+      <div>{isLoading ? <span>загружаем...</span> : null}</div>
     </>
   );
 }

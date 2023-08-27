@@ -1,5 +1,5 @@
 import { getCurrentDateString } from "@/utils/date";
-import { NEOFeed } from "./NEO.interface";
+import { NEOFeed } from "@/types";
 
 async function fetchNEOFeed(pageURL: string) {
   try {

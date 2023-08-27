@@ -1,4 +1,4 @@
-import { NearEarthObject } from "@/api/NEO.interface";
+import { NearEarthObject } from "@/types";
 import styles from "./styles.module.scss";
 import { formatDateString } from "@/utils/date";
 import { CartWidget } from "@/app/components/CartWidget/CartWidget";

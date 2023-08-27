@@ -1,5 +1,5 @@
 'use client'
-import { NearEarthObject } from "@/api/NEO.interface";
+import { NearEarthObject } from "@/types";
 import React, { createContext, useContext, useReducer } from "react";
 
 interface CartState {

@@ -4,7 +4,7 @@ interface RelativeVelocity {
   miles_per_hour: string;
 }
 
-interface MissDistance {
+export interface MissDistance {
   astronomical: string;
   lunar: string;
   kilometers: string;
@@ -52,44 +52,44 @@ interface OrbitalData {
   orbit_class: OrbitClass;
 }
 
-interface NearEarthObject {
-    links: {
-      self: string;
+export interface NearEarthObject {
+  links: {
+    self: string;
+  };
+  id: string;
+  neo_reference_id: string;
+  name: string;
+  nasa_jpl_url: string;
+  absolute_magnitude_h: number;
+  estimated_diameter: {
+    kilometers: {
+      estimated_diameter_min: number;
+      estimated_diameter_max: number;
     };
-    id: string;
-    neo_reference_id: string;
-    name: string;
-    nasa_jpl_url: string;
-    absolute_magnitude_h: number;
-    estimated_diameter: {
-      kilometers: {
-        estimated_diameter_min: number;
-        estimated_diameter_max: number;
-      };
-      meters: {
-        estimated_diameter_min: number;
-        estimated_diameter_max: number;
-      };
-      miles: {
-        estimated_diameter_min: number;
-        estimated_diameter_max: number;
-      };
-      feet: {
-        estimated_diameter_min: number;
-        estimated_diameter_max: number;
-      };
+    meters: {
+      estimated_diameter_min: number;
+      estimated_diameter_max: number;
     };
-    is_potentially_hazardous_asteroid: boolean;
-    close_approach_data: CloseApproachData[];
-    is_sentry_object: boolean;
-    orbital_data?: OrbitalData
-  }
-  
-interface NearEarthObjects {
+    miles: {
+      estimated_diameter_min: number;
+      estimated_diameter_max: number;
+    };
+    feet: {
+      estimated_diameter_min: number;
+      estimated_diameter_max: number;
+    };
+  };
+  is_potentially_hazardous_asteroid: boolean;
+  close_approach_data: CloseApproachData[];
+  is_sentry_object: boolean;
+  orbital_data?: OrbitalData;
+}
+
+export interface NearEarthObjects {
   [date: string]: NearEarthObject[];
 }
 
-interface NEOFeed {
+export interface NEOFeed {
   links: {
     next: string;
     previous: string;
@@ -99,4 +99,13 @@ interface NEOFeed {
   near_earth_objects: NearEarthObjects;
 }
 
-export type { NEOFeed, NearEarthObject, NearEarthObjects };
+/* To add an new distance unit, add it here and add a case to the
+  getMissDistanceLabel function in the utils/asteroids
+*/
+export enum DistanceUnits {
+  "kilometers" = "в километрах",
+  "moon orbits" = "в лунных орбитах",
+  "miles" = "в милях",
+}
+
+export type DistanceUnitsKey = keyof typeof DistanceUnits;
