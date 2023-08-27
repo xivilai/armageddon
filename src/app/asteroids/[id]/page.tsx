@@ -13,7 +13,7 @@ async function AsteroidPage({ params }: Props) {
   const asteroid = await getAsteroidData(id);
 
   return (
-    <div className={styles.pageContainer}>
+    <div className={styles["page-container"]}>
       <div className="page">
         <h2 className={styles.asteroidName}>Имя: {asteroid.name}</h2>
         <div className={styles.diameterInfo}>

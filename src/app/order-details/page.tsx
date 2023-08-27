@@ -3,7 +3,7 @@ import { useCart } from "@/contexts/CartContext";
 
 import { AsteroidList } from "../components/AsteroidList/AsteroidList";
 import { AsteroidListItem } from "../components/AsteroidListItem";
-import { getMissDistance } from "@/utils/asteroids";
+import { getMissDistanceLabel } from "@/utils/asteroids";
 
 function OrderDetailsPage() {
   const { state } = useCart();
@@ -18,7 +18,10 @@ function OrderDetailsPage() {
           <AsteroidListItem
             key={asteroid.id}
             asteroid={asteroid}
-            missDistance={getMissDistance(asteroid, "moon orbits")}
+            missDistance={getMissDistanceLabel(
+              asteroid.close_approach_data[0].miss_distance,
+              "moon orbits"
+            )}
           />
         ))}
       </AsteroidList>
