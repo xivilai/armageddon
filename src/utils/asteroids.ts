@@ -1,43 +1,47 @@
-"use client";
-import { useState, useEffect, useRef } from "react";
-import { getTomorrowDateString } from "./date";
-import { MissDistance, NearEarthObjects } from "@/types";
+import React, { useState, useEffect, useRef } from "react";
+import { useQuery } from "@tanstack/react-query";
+
 import { fetchNEOFeed } from "@/api/getAsteroids";
 import { DistanceUnits } from "@/types";
+import { MissDistance, NearEarthObject, NearEarthObjects } from "@/types";
 import { useScrollPage } from "./useScrollPage";
 
-const tomorrow = getTomorrowDateString();
-const API_URL = `/api/asteroid-feed/?start_date=${tomorrow}&end_date=${tomorrow}`;
-
 function useAsteroids() {
-  const [nearEarthObjects, setNearEarthObjects] = useState<NearEarthObjects>(
-    {}
-  );
-  const page = useScrollPage();
-  const nextPage = useRef(API_URL);
-  const [isLoading, setIsLoading] = useState(false);
+  const scrollPage = useScrollPage();
+  const nextPageUrl = getPageUrl(scrollPage);
+
+  const {
+    data: asteroids,
+    isFetching,
+    refetch,
+  } = useQuery<NearEarthObjects>({
+    queryKey: ["asteroid-feed"],
+    enabled: scrollPage > 0,
+    queryFn: () =>
+      fetchNEOFeed(nextPageUrl).then((res): NearEarthObjects => {
+        return { ...asteroids, ...res.near_earth_objects };
+      }),
+  });
 
   useEffect(() => {
-    if (page === 0) {
-      return;
+    if (scrollPage > 0) {
+      refetch();
     }
+  }, [scrollPage, refetch]);
 
-    setIsLoading(true);
+  return { asteroids, isFetching };
+}
 
-    fetchNEOFeed(nextPage.current)
-      .then((asteroidFeedResponse) => {
-        setNearEarthObjects((prev) => ({
-          ...prev,
-          ...asteroidFeedResponse.near_earth_objects,
-        }));
-        nextPage.current = asteroidFeedResponse.links.next.replace("http", "https");
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, [page]);
+function useAsteroid(asteroidId: string) {
+  const [asteroid, setAsteroid] = useState<NearEarthObject | null>(null);
 
-  return { nearEarthObjects, isLoading };
+  React.useEffect(() => {
+    fetch(`/api/asteroids/${asteroidId}`)
+      .then((res) => res.json())
+      .then(setAsteroid);
+  }, [asteroidId]);
+
+  return asteroid;
 }
 
 function getMissDistanceLabel(
@@ -54,7 +58,7 @@ function getMissDistanceLabel(
         .toString()
         .replace(/\B(?=(\d{3})+(?!\d))/g, " ")} километров`;
     default:
-      throw new Error(`Unknown distance option: ${distanceOption}`)
+      throw new Error(`Unknown distance option: ${distanceOption}`);
   }
 }
 
@@ -64,4 +68,30 @@ function kmToMoonTrips(km: number) {
   return Math.trunc(distanceInTrips).toString();
 }
 
-export { useAsteroids, kmToMoonTrips, getMissDistanceLabel };
+function getAsteroidImageSize(diameterInKm: number) {
+  if (diameterInKm > 0.07) {
+    return 32;
+  } else if (diameterInKm > 0.04) {
+    return 24;
+  } else {
+    return 16;
+  }
+}
+
+function getPageUrl(daysOffset: number) {
+  const currentDate = new Date();
+  const endDate = new Date(
+    currentDate.setDate(currentDate.getDate() + daysOffset)
+  );
+  const startDate = endDate.toISOString().split("T")[0];
+
+  return `api/asteroid-feed?start_date=${startDate}&end_date=${startDate}`;
+}
+
+export {
+  useAsteroids,
+  useAsteroid,
+  kmToMoonTrips,
+  getMissDistanceLabel,
+  getAsteroidImageSize,
+};

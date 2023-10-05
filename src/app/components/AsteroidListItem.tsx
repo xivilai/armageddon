@@ -9,6 +9,7 @@ import { NearEarthObject } from "@/types";
 import { formatDateString } from "@/utils/date";
 
 import styles from "./AsteroidList/styles.module.scss";
+import { getAsteroidImageSize } from "@/utils/asteroids";
 
 interface AsteroidListItemProps {
   asteroid: NearEarthObject;
@@ -74,16 +75,6 @@ function AsteroidListItem({
       </div>
     </li>
   );
-}
-
-function getAsteroidImageSize(diameterInKm: number) {
-  if (diameterInKm > 0.07) {
-    return 32;
-  } else if (diameterInKm > 0.04) {
-    return 24;
-  } else {
-    return 16;
-  }
 }
 
 export { AsteroidListItem };

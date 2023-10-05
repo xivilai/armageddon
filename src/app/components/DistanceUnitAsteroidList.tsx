@@ -16,8 +16,12 @@ type Props = {
 };
 
 function DistanceUnitAsteroidList({ initialAsteroids }: Props) {
-  const { isLoading, nearEarthObjects } = useAsteroids();
-  const asteroids = { ...initialAsteroids, ...nearEarthObjects };
+  const { asteroids, isFetching } = useAsteroids();
+  let allAsteroids = { ...initialAsteroids };
+
+  if (asteroids) {
+    allAsteroids = { ...initialAsteroids, ...asteroids };
+  }
 
   const [currentDistanceUnit, setCurrentDistanceUnit] =
     useState<DistanceUnitsKey>("kilometers");
@@ -32,7 +36,7 @@ function DistanceUnitAsteroidList({ initialAsteroids }: Props) {
       />
 
       <AsteroidList>
-        {Object.values(asteroids)
+        {Object.values(allAsteroids)
           .flat()
           .map((asteroid) => (
             <AsteroidListItem
@@ -52,7 +56,17 @@ function DistanceUnitAsteroidList({ initialAsteroids }: Props) {
           ))}
       </AsteroidList>
 
-      <div>{isLoading ? <span>загружаем...</span> : null}</div>
+      <div
+        style={{
+          height: "120px",
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {isFetching ? <span>загружаем...</span> : null}
+      </div>
     </>
   );
 }

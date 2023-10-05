@@ -61,6 +61,7 @@ export default function RootLayout({
           <div className="page-wrapper">
             <div className="page-bg">
               <Image
+                priority
                 className="earth-image"
                 src="/planeta_zemlia_kosmos_167499_2560x1600 1.jpg"
                 alt="My Image"

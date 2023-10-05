@@ -26,7 +26,7 @@ function OrderDetailsPage() {
         ))}
       </AsteroidList>
 
-      <footer>© Все права и планета защищены</footer>
+      <footer>© Все права и планеты защищены</footer>
     </div>
   );
 }

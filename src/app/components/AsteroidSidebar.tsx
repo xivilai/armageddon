@@ -12,11 +12,16 @@ function AsteroidSidebar({asteroid}: { asteroid: NearEarthObject }) {
 
   return (
     <div>
-      <CartWidget />
-      <OrderButton
-        onClick={() => dispatch({ type: "ADD_TO_CART", asteroid })}
-        disabled={getAsteroidInCart(state.cart, asteroid)}
-      />
+      <div style={{ marginBottom: "1em" }}>
+        <CartWidget />
+      </div>
+
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <OrderButton
+          onClick={() => dispatch({ type: "ADD_TO_CART", asteroid })}
+          disabled={getAsteroidInCart(state.cart, asteroid)}
+        />
+      </div>
     </div>
   );
 }
