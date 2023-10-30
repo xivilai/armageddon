@@ -1,8 +1,8 @@
 "use client";
-import { useCart } from "@/contexts/CartContext";
+import { useCart } from "@/contexts/cart-context";
 
-import { AsteroidList } from "../components/AsteroidList/AsteroidList";
-import { AsteroidListItem } from "../components/AsteroidListItem";
+import { AsteroidList } from "../components/asteroid-list/asteroid-list";
+import { AsteroidListItem } from "../components/asteroid-list-item";
 import { getMissDistanceLabel } from "@/utils/asteroids";
 
 function OrderDetailsPage() {

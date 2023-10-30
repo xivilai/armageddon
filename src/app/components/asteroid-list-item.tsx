@@ -1,14 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { DistanceIcon } from "@/assets/icons/DistanceIcon";
+import { DistanceIcon } from "@/assets/icons/distance-icon";
 import asteroidImage from "@/assets/icons/asteroid.png";
-import { DangerIcon } from "@/assets/icons/DangerIcon";
+import { DangerIcon } from "@/assets/icons/danger-icon";
 
 import { NearEarthObject } from "@/types";
 import { formatDateString } from "@/utils/date";
 
-import styles from "./AsteroidList/styles.module.scss";
+import styles from "./asteroid-list/styles.module.scss";
 import { getAsteroidImageSize } from "@/utils/asteroids";
 
 interface AsteroidListItemProps {

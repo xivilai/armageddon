@@ -1,11 +1,11 @@
 "use client";
 
-import { CartWidget } from "./CartWidget/CartWidget";
-import { OrderButton } from "./CartWidget/OrderButton";
+import { CartWidget } from "./cart-widget/cart-widget";
+import { OrderButton } from "./cart-widget/order-button";
 
 import { getAsteroidInCart } from "@/utils/cart";
 import { NearEarthObject } from "@/types";
-import { useCart } from "@/contexts/CartContext";
+import { useCart } from "@/contexts/cart-context";
 
 function AsteroidSidebar({asteroid}: { asteroid: NearEarthObject }) {
   const { state, dispatch } = useCart();

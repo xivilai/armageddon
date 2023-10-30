@@ -1,8 +1,8 @@
 'use client'
 import styles from "./styles.module.scss";
-import { AsteroidSidebar } from "@/app/components/AsteroidSidebar";
+import { AsteroidSidebar } from "@/app/components/asteroid-sidebar";
 import { useAsteroid } from "@/utils/asteroids";
-import { CloseApproachDate } from "../CloseApproachDate";
+import { CloseApproachDate } from "../close-approach-date";
 
 type Props = {
   params: { id: string };

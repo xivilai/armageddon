@@ -1,13 +1,13 @@
 "use client";
 import React, { useState } from "react";
 
-import { AsteroidList } from "./AsteroidList/AsteroidList";
-import { AsteroidListItem } from "./AsteroidListItem";
-import { OrderButton } from "./CartWidget/OrderButton";
-import { DistanceUnitSelect } from "./DistanceUnitSelect";
+import { AsteroidList } from "./asteroid-list/asteroid-list";
+import { AsteroidListItem } from "./asteroid-list-item";
+import { OrderButton } from "./cart-widget/order-button";
+import { DistanceUnitSelect } from "./distance-unit-select";
 
 import { getMissDistanceLabel, useAsteroids } from "@/utils/asteroids";
-import { useCart } from "@/contexts/CartContext";
+import { useCart } from "@/contexts/cart-context";
 import { DistanceUnitsKey, NearEarthObjects } from "@/types";
 import { getAsteroidInCart } from "@/utils/cart";
 

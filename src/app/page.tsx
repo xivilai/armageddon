@@ -1,6 +1,6 @@
 import { fetchCurrentDateNeoFeed } from "@/api/getAsteroids";
-import { CartWidget } from "@/app/components/CartWidget/CartWidget";
-import { DistanceUnitAsteroidList } from "@/app/components/DistanceUnitAsteroidList";
+import { CartWidget } from "@/app/components/cart-widget/cart-widget";
+import { DistanceUnitAsteroidList } from "@/app/components/distance-unit-asteroid-list";
 
 async function HomeWrapper() {
   const { near_earth_objects } = await fetchCurrentDateNeoFeed();

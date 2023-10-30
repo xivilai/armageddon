@@ -1,6 +1,6 @@
 'use client'
 import { useRouter } from "next/navigation";
-import { useCart } from "@/contexts/CartContext";
+import { useCart } from "@/contexts/cart-context";
 import { getSuffixedAsteroidString } from "@/utils/string";
 import styles from "./styles.module.scss";
 

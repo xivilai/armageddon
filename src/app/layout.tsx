@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Image from "next/image";
 
-import { Header } from "@/app/components/Header/Header";
+import { Header } from "@/app/components/header/header";
 
 import "@/assets/styles/global.scss";
 import { Providers } from "./providers";
@@ -15,32 +15,32 @@ export const metadata: Metadata = {
 const helvetica = localFont({
   src: [
     {
-      path: "../assets/fonts/Helvetica-Bold.eot",
+      path: "../assets/fonts/helvetica-bold.eot",
       weight: "700",
       style: "normal",
     },
     {
-      path: "../assets/fonts/Helvetica-Bold.ttf",
+      path: "../assets/fonts/helvetica-bold.ttf",
       weight: "700",
       style: "normal",
     },
     {
-      path: "../assets/fonts/Helvetica-Bold.woff",
+      path: "../assets/fonts/helvetica-bold.woff",
       weight: "700",
       style: "normal",
     },
     {
-      path: "../assets/fonts/Helvetica-Regular.eot",
+      path: "../assets/fonts/helvetica-regular.eot",
       weight: "400",
       style: "normal",
     },
     {
-      path: "../assets/fonts/Helvetica-Regular.ttf",
+      path: "../assets/fonts/helvetica-regular.ttf",
       weight: "400",
       style: "normal",
     },
     {
-      path: "../assets/fonts/Helvetica-Regular.woff",
+      path: "../assets/fonts/helvetica-regular.woff",
       weight: "400",
       style: "normal",
     },
