@@ -11,7 +11,7 @@ function OrderDetailsPage() {
 
   return (
     <div className="order-details-page">
-      <h2>{state.cart.length === 0 ? "Карзина пуста" : "Заказ отправлен!"}</h2>
+      <h2>{state.cart.length === 0 ? "Корзина пуста" : "Заказ отправлен!"}</h2>
 
       <AsteroidList>
         {asteroids.map((asteroid) => (
