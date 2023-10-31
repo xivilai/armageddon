@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import Image from "next/image";
 
-import { Header } from "@/app/components/header/header";
+import { Header } from "@/app/components/header";
 
 import "@/assets/styles/global.scss";
 import { Providers } from "./providers";

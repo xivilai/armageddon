@@ -1,15 +1,13 @@
 "use client";
 import React, { useState } from "react";
 
-import { AsteroidList } from "./asteroid-list/asteroid-list";
-import { AsteroidListItem } from "./asteroid-list-item";
+import { AsteroidList } from "./asteroid-list";
+import { AsteroidListItem } from "./asteroid-list";
 import { OrderButton } from "./cart-widget/order-button";
 import { DistanceUnitSelect } from "./distance-unit-select";
 
 import { getMissDistanceLabel, useAsteroids } from "@/utils/asteroids";
-import { useCart } from "@/contexts/cart-context";
 import { DistanceUnitsKey, NearEarthObjects } from "@/types";
-import { getAsteroidInCart } from "@/utils/cart";
 
 type Props = {
   initialAsteroids: NearEarthObjects;
@@ -25,8 +23,6 @@ function DistanceUnitAsteroidList({ initialAsteroids }: Props) {
 
   const [currentDistanceUnit, setCurrentDistanceUnit] =
     useState<DistanceUnitsKey>("kilometers");
-
-  const { state, dispatch } = useCart();
 
   return (
     <>
@@ -46,12 +42,7 @@ function DistanceUnitAsteroidList({ initialAsteroids }: Props) {
                 asteroid.close_approach_data[0].miss_distance,
                 currentDistanceUnit
               )}
-              orderButton={
-                <OrderButton
-                  onClick={() => dispatch({ type: "ADD_TO_CART", asteroid })}
-                  disabled={getAsteroidInCart(state.cart, asteroid)}
-                />
-              }
+              orderButton={<OrderButton asteroid={asteroid} />}
             />
           ))}
       </AsteroidList>

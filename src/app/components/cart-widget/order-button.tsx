@@ -1,19 +1,24 @@
 'use client'
-import { MouseEventHandler } from "react";
 
-type OrderButtonProps = {
-  onClick: MouseEventHandler<HTMLButtonElement>;
-  disabled?: boolean;
-};
+import { useCart } from "@/contexts/cart-context";
+import { NearEarthObject } from "@/types";
+import { getAsteroidInCart } from "@/utils/cart";
 
-function OrderButton({ onClick, disabled }: OrderButtonProps) {
+type Props = {
+  asteroid: NearEarthObject
+}
+
+function OrderButton({ asteroid }: Props) {
+  const { state, dispatch } = useCart();
+  const isAsteroidInCart = getAsteroidInCart(state.cart, asteroid);
+
   return (
     <button
       className="button order-button"
-      onClick={onClick}
-      disabled={Boolean(disabled)}
+      onClick={() => dispatch({ type: "ADD_TO_CART", asteroid })}
+      disabled={isAsteroidInCart}
     >
-      {Boolean(disabled) ? <span>в корзине</span> : <span>заказать</span>}
+      {isAsteroidInCart ? <span>в корзине</span> : <span>заказать</span>}
     </button>
   );
 }
