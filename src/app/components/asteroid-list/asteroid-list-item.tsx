@@ -8,8 +8,8 @@ import { DangerIcon } from "@/assets/icons/danger-icon";
 import styles from "./styles.module.scss";
 
 import { NearEarthObject } from "@/types";
-import { formatDateString } from "@/utils/date";
-import { getAsteroidImageSize } from "@/utils/asteroids";
+import { formatDateString } from "@/lib/date";
+import { getAsteroidImageSize } from "@/lib/utils";
 
 interface AsteroidListItemProps {
   asteroid: NearEarthObject;

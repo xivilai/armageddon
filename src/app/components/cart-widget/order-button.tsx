@@ -2,7 +2,7 @@
 
 import { useCart } from "@/contexts/cart-context";
 import { NearEarthObject } from "@/types";
-import { getAsteroidInCart } from "@/utils/cart";
+import { getAsteroidInCart } from "@/lib/cart";
 
 type Props = {
   asteroid: NearEarthObject

@@ -1,4 +1,4 @@
-import { formatDateString } from "@/utils/date";
+import { formatDateString } from "@/lib/date";
 
 interface Props {
     closeApproachDate: string

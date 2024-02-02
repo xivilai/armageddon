@@ -1,7 +1,7 @@
-import { getCurrentDateString } from "@/utils/date";
+import { getCurrentDateString } from "@/lib/date";
 import { NEOFeed } from "@/types";
 
-async function fetchNEOFeed(pageURL: string) {
+export async function fetchNEOFeed(pageURL: string) {
   try {
     const response = await fetch(pageURL);
     const feed: NEOFeed = await response.json();
@@ -13,13 +13,11 @@ async function fetchNEOFeed(pageURL: string) {
   }
 }
 
-async function fetchCurrentDateNeoFeed() {
+export async function fetchCurrentDateNeoFeed() {
   const pageUrl = `${
     process.env.API_URL
   }/feed?start_date=${getCurrentDateString()}&end_date=${getCurrentDateString()}
-  &api_key=4wwirVjz1K4YDyWwOMhiybyqSuK1kDfEATuCM3n7`;
+    &api_key=4wwirVjz1K4YDyWwOMhiybyqSuK1kDfEATuCM3n7`;
 
   return fetchNEOFeed(pageUrl);
 }
-
-export { fetchNEOFeed, fetchCurrentDateNeoFeed };

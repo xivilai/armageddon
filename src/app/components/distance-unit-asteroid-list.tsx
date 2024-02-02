@@ -6,7 +6,8 @@ import { AsteroidListItem } from "./asteroid-list";
 import { OrderButton } from "./cart-widget/order-button";
 import { DistanceUnitSelect } from "./distance-unit-select";
 
-import { getMissDistanceLabel, useAsteroids } from "@/utils/asteroids";
+import { getMissDistanceLabel } from "@/lib/utils";
+import { useAsteroids } from '@/lib/asteroids';
 import { DistanceUnitsKey, NearEarthObjects } from "@/types";
 
 type Props = {
@@ -14,12 +15,8 @@ type Props = {
 };
 
 function DistanceUnitAsteroidList({ initialAsteroids }: Props) {
-  const { asteroids, isFetching } = useAsteroids();
-  let allAsteroids = { ...initialAsteroids };
-
-  if (asteroids) {
-    allAsteroids = { ...initialAsteroids, ...asteroids };
-  }
+  const { asteroids = [], isFetching } = useAsteroids();
+  const allAsteroids = { ...initialAsteroids, ...asteroids };
 
   const [currentDistanceUnit, setCurrentDistanceUnit] =
     useState<DistanceUnitsKey>("kilometers");

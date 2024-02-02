@@ -4,7 +4,7 @@ import { AsteroidList } from "@/app/components/asteroid-list";
 import { AsteroidListItem } from "@/app/components/asteroid-list";
 
 import { useCart } from "@/contexts/cart-context";
-import { getMissDistanceLabel } from "@/utils/asteroids";
+import { getMissDistanceLabel } from "@/lib/utils";
 
 function OrderDetailsPage() {
   const { state } = useCart();

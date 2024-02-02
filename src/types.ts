@@ -99,13 +99,12 @@ export interface NEOFeed {
   near_earth_objects: NearEarthObjects;
 }
 
-/* To add an new distance unit, add it here and add a case to the
-  getMissDistanceLabel function in the utils/asteroids
-*/
+export type DistanceUnit = "kilometers" | "moon orbits"
+
 export enum DistanceUnits {
   "kilometers" = "в километрах",
   "moon orbits" = "в лунных орбитах",
-  "miles" = "в милях",
+  "miles" = "в милях"
 }
 
 export type DistanceUnitsKey = keyof typeof DistanceUnits;
