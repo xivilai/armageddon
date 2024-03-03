@@ -1,22 +1,16 @@
 import { CartWidget } from "@/app/components/cart-widget";
 import { DistanceUnitAsteroidList } from "@/app/components/distance-unit-asteroid-list";
+import { client } from "@/lib/api-client";
 
 import { getCurrentDateString } from "@/lib/date";
 import { NEOFeed } from "@/types";
 
 export async function fetchNEOFeed(): Promise<NEOFeed> {
-  const pageUrl = `${
-    process.env.API_URL
-  }/feed?start_date=${getCurrentDateString()}&end_date=${getCurrentDateString()}
-      &api_key=4wwirVjz1K4YDyWwOMhiybyqSuK1kDfEATuCM3n7`;
+  const startDate = getCurrentDateString()
+  const endDate = startDate
 
-  const response = await fetch(pageUrl);
-
-  if (!response.ok) {
-    throw new Error("Не удалось загрузить астероиды");
-  }
-
-  return response.json();
+  const feed = await client(`feed?start_date=${startDate}&end_date=${endDate}`)
+  return feed;
 }
 
 async function HomeWrapper() {
