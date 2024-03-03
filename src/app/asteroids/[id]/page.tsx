@@ -1,7 +1,7 @@
 'use client'
 import styles from "./styles.module.scss";
 import { AsteroidSidebar } from "@/app/components/asteroid-sidebar";
-import { useAsteroid } from "@/lib/utils";
+import { useAsteroid } from "@/lib/asteroids";
 import { CloseApproachDate } from "../close-approach-date";
 
 type Props = {

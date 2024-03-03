@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 
-import { AsteroidList } from "./asteroid-list";
 import { AsteroidListItem } from "./asteroid-list";
 import { OrderButton } from "./cart-widget/order-button";
 import { DistanceUnitSelect } from "./distance-unit-select";
@@ -28,7 +27,7 @@ function DistanceUnitAsteroidList({ initialAsteroids }: Props) {
         onSelectDistanceUnit={(unit) => setCurrentDistanceUnit(unit)}
       />
 
-      <AsteroidList>
+      <ul className="asteroid-list">
         {Object.values(allAsteroids)
           .flat()
           .map((asteroid) => (
@@ -42,7 +41,7 @@ function DistanceUnitAsteroidList({ initialAsteroids }: Props) {
               orderButton={<OrderButton asteroid={asteroid} />}
             />
           ))}
-      </AsteroidList>
+      </ul>
 
       <div
         style={{

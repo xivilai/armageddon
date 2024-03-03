@@ -14,7 +14,7 @@ function OrderDetailsPage() {
     <div className="order-details-page">
       <h2>{state.cart.length === 0 ? "Корзина пуста" : "Заказ отправлен!"}</h2>
 
-      <AsteroidList>
+      <ul className="asteroid-list">
         {asteroids.map((asteroid) => (
           <AsteroidListItem
             key={asteroid.id}
@@ -25,7 +25,7 @@ function OrderDetailsPage() {
             )}
           />
         ))}
-      </AsteroidList>
+      </ul>
 
       <footer>© Все права и планеты защищены</footer>
     </div>

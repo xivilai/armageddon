@@ -5,8 +5,6 @@ import { DistanceIcon } from "@/assets/icons/distance-icon";
 import asteroidImage from "@/assets/icons/asteroid.png";
 import { DangerIcon } from "@/assets/icons/danger-icon";
 
-import styles from "./styles.module.scss";
-
 import { NearEarthObject } from "@/types";
 import { formatDateString } from "@/lib/date";
 import { getAsteroidImageSize } from "@/lib/utils";
@@ -27,22 +25,22 @@ function AsteroidListItem({
   );
 
   return (
-    <li className={styles["asteroid-list-item"]}>
-      <h3 className={styles["asteroid-date"]}>
+    <li className="asteroid-list-item">
+      <h3 className="asteroid-date">
         <time dateTime={asteroid.close_approach_data[0].close_approach_date}>
           {asteroidDate}
         </time>
       </h3>
 
-      <div className={styles["row"]}>
-        <div className={styles["asteroid-distance"]}>
+      <div className="row">
+        <div className="asteroid-distance">
           <span>
             {missDistance}
           </span>
           <DistanceIcon />
         </div>
 
-        <Link href={`/asteroids/${asteroid.id}`} className={styles["row"]}>
+        <Link href={`/asteroids/${asteroid.id}`} className="row">
           <Image
             src={asteroidImage}
             width={getAsteroidImageSize(
@@ -54,20 +52,20 @@ function AsteroidListItem({
             alt="asteroid"
           />
 
-          <div className={styles["col"]}>
-            <span className={styles["asteroid-name"]}>{asteroid.name}</span>
-            <span className={styles["asteroid-magnitude"]}>
+          <div className="col">
+            <span className="asteroid-name">{asteroid.name}</span>
+            <span className="asteroid-magnitude">
               Ø {asteroid.absolute_magnitude_h} M
             </span>
           </div>
         </Link>
       </div>
 
-      <div className={styles["row"]}>
+      <div className="row">
         {orderButton}
 
         {asteroid.is_potentially_hazardous_asteroid ? (
-          <div className={styles["danger-indicator"]}>
+          <div className="danger-indicator">
             <DangerIcon />
             опасен
           </div>
