@@ -99,7 +99,7 @@ export interface NEOFeed {
   near_earth_objects: NearEarthObjects;
 }
 
-export type DistanceUnit = "kilometers" | "moon orbits"
+export type DistanceUnit = keyof typeof DistanceUnits
 
 export enum DistanceUnits {
   "kilometers" = "в километрах",

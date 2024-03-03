@@ -5,9 +5,9 @@ import { AsteroidListItem } from "./asteroid-list";
 import { OrderButton } from "./cart-widget/order-button";
 import { DistanceUnitSelect } from "./distance-unit-select";
 
-import { getMissDistanceLabel } from "@/lib/utils";
-import { useAsteroids } from '@/lib/asteroids';
+import { useAsteroids } from "@/lib/asteroids";
 import { DistanceUnitsKey, NearEarthObjects } from "@/types";
+import MissDistance from "./asteroid-list/miss-distance";
 
 type Props = {
   initialAsteroids: NearEarthObjects;
@@ -34,10 +34,12 @@ function DistanceUnitAsteroidList({ initialAsteroids }: Props) {
             <AsteroidListItem
               key={asteroid.id}
               asteroid={asteroid}
-              missDistance={getMissDistanceLabel(
-                asteroid.close_approach_data[0].miss_distance,
-                currentDistanceUnit
-              )}
+              missDistance={
+                <MissDistance
+                  missDistance={asteroid.close_approach_data[0].miss_distance}
+                  distanceUnit={currentDistanceUnit}
+                />
+              }
               orderButton={<OrderButton asteroid={asteroid} />}
             />
           ))}

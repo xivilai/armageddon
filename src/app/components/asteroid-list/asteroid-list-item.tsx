@@ -1,7 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { DistanceIcon } from "@/assets/icons/distance-icon";
 import asteroidImage from "@/assets/icons/asteroid.png";
 import { DangerIcon } from "@/assets/icons/danger-icon";
 
@@ -11,7 +10,7 @@ import { getAsteroidImageSize } from "@/lib/utils";
 
 interface AsteroidListItemProps {
   asteroid: NearEarthObject;
-  missDistance: string;
+  missDistance: React.ReactNode;
   orderButton?: React.ReactNode;
 }
 
@@ -33,12 +32,7 @@ function AsteroidListItem({
       </h3>
 
       <div className="row">
-        <div className="asteroid-distance">
-          <span>
-            {missDistance}
-          </span>
-          <DistanceIcon />
-        </div>
+        {missDistance}
 
         <Link href={`/asteroids/${asteroid.id}`} className="row">
           <Image
