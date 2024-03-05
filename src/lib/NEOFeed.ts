@@ -1,4 +1,3 @@
-import { getCurrentDateString } from "@/lib/date";
 import { NEOFeed } from "@/types";
 
 export async function fetchNEOFeed(pageURL: string) {
@@ -11,13 +10,4 @@ export async function fetchNEOFeed(pageURL: string) {
     console.error("Error fetching NearEarthObject feed:", error);
     throw new Error("Не удалось загрузить астероиды");
   }
-}
-
-export async function fetchCurrentDateNeoFeed() {
-  const pageUrl = `${
-    process.env.API_URL
-  }/feed?start_date=${getCurrentDateString()}&end_date=${getCurrentDateString()}
-    &api_key=4wwirVjz1K4YDyWwOMhiybyqSuK1kDfEATuCM3n7`;
-
-  return fetchNEOFeed(pageUrl);
 }
